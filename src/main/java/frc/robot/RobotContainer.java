@@ -209,7 +209,7 @@ public class RobotContainer
   {
     // An example command will be run in autonomous
     String SelectedAuto = m_chooser.getSelected();
-    return drivebase.getAutonomousCommand("Spin_FDBW");
+    return drivebase.getAutonomousCommand("Test");
   }
 
   public void setMotorBrake(boolean brake)

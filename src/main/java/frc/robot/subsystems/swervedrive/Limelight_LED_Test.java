@@ -27,7 +27,7 @@ public class Limelight_LED_Test extends SubsystemBase {
         System.out.println(results.valid);
         System.out.println(results.targets_Fiducials.length);
         System.out.println("tv = "+LimelightHelpers.getTV(ledname));
-
+        System.out.println(LimelightHelpers.getLatency_Pipeline(ledname));
         if (seesAprilTag) {
             ledstrip.setWhite();
             System.out.println("April tag seen!");
