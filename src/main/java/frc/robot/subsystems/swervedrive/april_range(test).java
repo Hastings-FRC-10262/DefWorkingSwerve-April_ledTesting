@@ -55,8 +55,12 @@ public class Limelight_LED_Test extends SubsystemBase {
             System.out.println("x = " + x);
             System.out.println("z = " + z);
             System.out.println("distance = " + distance);
-
-            ledstrip.setWhite();
+            
+            if (distane <= 1.0) {
+                ledstrip.setPink();
+            } else {
+                ledstrip.setWhite();
+            }
             LimelightHelpers.setLEDMode_ForceOn(ledname);
 
         } else {
