@@ -41,15 +41,8 @@ public class Limelight_LED_Test extends SubsystemBase {
 
         if (seesAprilTag) {
 
-            double[] camtran =
-                limelight.getEntry("camtran").getDoubleArray(new double[6]);
-
-            double x = camtran[0]; // left/right
-            double y = camtran[1]; // up/down
-            double z = camtran[2]; // forward
-
             double distance =
-                Math.sqrt(x*x + y*y + z*z);
+                results.targets_Fiducials[0].t6c[2];
 
             System.out.println("AprilTag seen!");
             System.out.println("x = " + x);
