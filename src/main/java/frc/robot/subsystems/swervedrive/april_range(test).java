@@ -1,48 +1,69 @@
 package frc.robot.subsystems.swervedrive;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.swervedrive.Leds.*;
 
-
 public class Limelight_LED_Test extends SubsystemBase {
 
-    private Leds ledstrip;
-    private String ledname;
+    private final Leds ledstrip;
+    private final String ledname;
 
-    public Limelight_LED_Test(Leds led,String Ledname) {
+    public Limelight_LED_Test(Leds led, String ledname) {
         this.ledstrip = led;
-        this.ledname=Ledname;
+        this.ledname = ledname;
     }
 
     @Override
     public void periodic() {
-        NetworkTable est =
-                NetworkTableInstance.getDefault().getTable("limelight");
 
+        // Get the correct Limelight table
+        NetworkTable limelight =
+            NetworkTableInstance.getDefault().getTable(ledname);
+
+        // Force AprilTag pipeline
         LimelightHelpers.setPipelineIndex(ledname, 9);
+
         LimelightHelpers.LimelightResults results =
-                LimelightHelpers.getLatestResults(ledname);
+            LimelightHelpers.getLatestResults(ledname);
+
         boolean seesAprilTag =
-                results != null &&
-                results.targets_Fiducials != null &&
-                results.targets_Fiducials.length > 0;
-        System.out.println(results.valid);
-        System.out.println(results.targets_Fiducials.length);
-        System.out.println("tv = "+LimelightHelpers.getTV(ledname));
-        System.out.println(LimelightHelpers.getLatency_Pipeline(ledname));
+            results != null &&
+            results.targets_Fiducials != null &&
+            results.targets_Fiducials.length > 0;
+
+        System.out.println("tv = " + LimelightHelpers.getTV(ledname));
+        System.out.println("pipeline latency = " +
+            LimelightHelpers.getLatency_Pipeline(ledname));
+
         if (seesAprilTag) {
+
             double[] camtran =
                 limelight.getEntry("camtran").getDoubleArray(new double[6]);
-            
+
+            double x = camtran[0]; // left/right
+            double y = camtran[1]; // up/down
+            double z = camtran[2]; // forward
+
+            double distance =
+                Math.sqrt(x*x + y*y + z*z);
+
+            System.out.println("AprilTag seen!");
+            System.out.println("x = " + x);
+            System.out.println("z = " + z);
+            System.out.println("distance = " + distance);
 
             ledstrip.setWhite();
-            System.out.println("April tag seen!");
             LimelightHelpers.setLEDMode_ForceOn(ledname);
+
         } else {
+
+            System.out.println("AprilTag NOT seen!");
+
             ledstrip.setOrange();
-            System.out.println("April tag not seen!");
-            // System.out.println("April tag NOT seen!");
             LimelightHelpers.setLEDMode_ForceOff(ledname);
         }
     }
