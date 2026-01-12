@@ -17,6 +17,9 @@ public class Limelight_LED_Test extends SubsystemBase {
 
     @Override
     public void periodic() {
+        NetworkTable est =
+                NetworkTableInstance.getDefault().getTable("limelight");
+
         LimelightHelpers.setPipelineIndex(ledname, 9);
         LimelightHelpers.LimelightResults results =
                 LimelightHelpers.getLatestResults(ledname);
@@ -29,6 +32,10 @@ public class Limelight_LED_Test extends SubsystemBase {
         System.out.println("tv = "+LimelightHelpers.getTV(ledname));
         System.out.println(LimelightHelpers.getLatency_Pipeline(ledname));
         if (seesAprilTag) {
+            double[] camtran =
+                limelight.getEntry("camtran").getDoubleArray(new double[6]);
+            
+
             ledstrip.setWhite();
             System.out.println("April tag seen!");
             LimelightHelpers.setLEDMode_ForceOn(ledname);
