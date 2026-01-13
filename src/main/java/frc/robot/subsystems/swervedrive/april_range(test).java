@@ -11,21 +11,19 @@ public class Limelight_LED_Test extends SubsystemBase {
 
     private final Leds ledstrip;
     private final String ledname;
-    private double angle;
-    private double distance;
 
     public Limelight_LED_Test(Leds led, String ledname) {
         this.ledstrip = led;
         this.ledname = ledname;
     }
 
-    private void getValue(LimelightHelpers.LimelightResults results) {
+    private double getValue(LimelightHelpers.LimelightResults results) {
 
         double x = results.targets_Fiducials[0].t6c[0]; 
         double z = results.targets_Fiducials[0].t6c[2]; 
 
-        distance = Math.sqrt(x * x + z * z);
-        angle = Math.toDegrees(Math.atan2(x, z));
+        double distance = Math.sqrt(x * x + z * z);
+        return distance;
     }
 
 
@@ -49,7 +47,10 @@ public class Limelight_LED_Test extends SubsystemBase {
             LimelightHelpers.getLatency_Pipeline(ledname));
 
         if (seesAprilTag) {
-            getValue(results);
+            
+            double angle = Math.toDegrees(Math.atan2(x, z));
+            double distance = getValue(results);
+            
             System.out.println("AprilTag seen!");
             System.out.println("distance = " + this.distance);
             
