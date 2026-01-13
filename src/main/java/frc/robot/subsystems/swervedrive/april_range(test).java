@@ -32,15 +32,7 @@ public class Limelight_LED_Test extends SubsystemBase {
 
         if (seesAprilTag) {
                         
-            double angle = LimelightHelpers.getTX(limelightName);
-            
-            var tag = results.targets_Fiducials[0];
-
-            double x = tag.getCameraPose_TargetSpace()[0]; 
-            double y = tag.getCameraPose_TargetSpace()[1]; 
-            double z = tag.getCameraPose_TargetSpace()[2]; 
-
-            double distance = Math.sqrt(x*x + y*y + z*z);
+            double angle = LimelightHelpers.getTX(limelightName); 
 
             // Forward distance from CAMERA to AprilTag (meters)
             double distanceMeters =
@@ -51,8 +43,9 @@ public class Limelight_LED_Test extends SubsystemBase {
             System.out.println("AprilTag seen");
             System.out.println("Camera distance (m): " + distanceMeters);
             System.out.println("Distance (m): " + distance);
-
-            if (distanceMeters <= 1.0 || distance <= 1.0) {
+            System.out.println("Camera Angle: " + angle); 
+            
+            if (distanceMeters <= 1.0) {
                 ledstrip.setYellow();
             } else {
                 ledstrip.setWhite();
