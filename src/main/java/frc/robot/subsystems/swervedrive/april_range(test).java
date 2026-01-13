@@ -5,7 +5,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.LimelightHelpers;
-import frc.robot.subsystems.swervedrive.Leds.*;
+import frc.robot.subsystems.swervedrive.Leds;
 
 public class Limelight_LED_Test extends SubsystemBase {
 
@@ -24,14 +24,12 @@ public class Limelight_LED_Test extends SubsystemBase {
     public void periodic() {
          LimelightHelpers.setPipelineIndex(ledname, 9);
         // Get the correct Limelight table
-        NetworkTable limelight =
-            NetworkTableInstance.getDefault().getTable(ledname);
+        NetworkTable limelight =  NetworkTableInstance.getDefault().getTable(ledname);
        
         LimelightHelpers.PoseEstimate pose = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(ledname);
 
 
-        LimelightHelpers.LimelightResults results =
-            LimelightHelpers.getLatestResults(ledname);
+        LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults(ledname);
 
         boolean seesAprilTag =
             results != null &&
@@ -44,7 +42,13 @@ public class Limelight_LED_Test extends SubsystemBase {
             
             double angle = LimelightHelpers.getTX(ledname);
             
-            double distance = Math.sqrt( Math.pow(pose.getX(), 2) + Math.pow(pose.getY(), 2) + Math.pow(pose.getZ(), 2) )
+            var tag = results.targets_Fiducials[0];
+
+            double x = tag.getCameraPose_TargetSpace()[0]; 
+            double y = tag.getCameraPose_TargetSpace()[1]; 
+            double z = tag.getCameraPose_TargetSpace()[2]; 
+
+            double distance = Math.sqrt(x*x + y*y + z*z);
 
             System.out.println("AprilTag seen!");
             System.out.println("distance = " + distance);
