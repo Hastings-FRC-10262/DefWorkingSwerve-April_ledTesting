@@ -30,6 +30,8 @@ public class Limelight_LED_Test extends SubsystemBase {
             results.targets_Fiducials != null &&
             results.targets_Fiducials.length > 0;
 
+        Pose2d botPose = LimelightHelpers.getBotPose2d(limelightName);
+
         if (seesAprilTag) {
                         
             double angle = LimelightHelpers.getTX(limelightName); 
@@ -39,7 +41,7 @@ public class Limelight_LED_Test extends SubsystemBase {
                 LimelightHelpers
                     .getTargetPose3d_CameraSpace(limelightName)
                     .getZ();
-
+        
             System.out.println("AprilTag seen");
             System.out.println("Distance (m): " + distanceMeters);
             System.out.println("Camera Angle: " + angle); 
