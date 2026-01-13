@@ -17,14 +17,7 @@ public class Limelight_LED_Test extends SubsystemBase {
         this.ledname = ledname;
     }
 
-    private double getValue(LimelightHelpers.LimelightResults results) {
 
-        double x = results.targets_Fiducials[0].t6c[0]; 
-        double z = results.targets_Fiducials[0].t6c[2]; 
-
-        double distance = Math.sqrt(x * x + z * z);
-        return distance;
-    }
 
 
     @Override
@@ -48,13 +41,11 @@ public class Limelight_LED_Test extends SubsystemBase {
 
         if (seesAprilTag) {
             
-            double angle = Math.toDegrees(Math.atan2(x, z));
-            double distance = getValue(results);
             
             System.out.println("AprilTag seen!");
-            System.out.println("distance = " + this.distance);
+            System.out.println("distance = " + distance);
             
-            if (this.distance <= 1.0) {
+            if (distance <= 1.0) {
                 ledstrip.setYellow();
             } else {
                 ledstrip.setWhite();
