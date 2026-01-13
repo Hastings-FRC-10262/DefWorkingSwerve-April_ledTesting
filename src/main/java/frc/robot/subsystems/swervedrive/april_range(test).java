@@ -32,7 +32,7 @@ public class Limelight_LED_Test extends SubsystemBase {
 
         if (seesAprilTag) {
                         
-            double angle = LimelightHelpers.getTX(LimelightName);
+            double angle = LimelightHelpers.getTX(limelightName);
             
             var tag = results.targets_Fiducials[0];
 
