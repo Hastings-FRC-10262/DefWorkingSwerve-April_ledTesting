@@ -25,7 +25,10 @@ public class Limelight_LED_Test extends SubsystemBase {
          LimelightHelpers.setPipelineIndex(ledname, 9);
         // Get the correct Limelight table
         NetworkTable limelight =
-            NetworkTableInstance.getDefault().getTable(ledname);;
+            NetworkTableInstance.getDefault().getTable(ledname);
+       
+        LimelightHelpers.PoseEstimate pose = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(ledname);
+
 
         LimelightHelpers.LimelightResults results =
             LimelightHelpers.getLatestResults(ledname);
@@ -34,14 +37,15 @@ public class Limelight_LED_Test extends SubsystemBase {
             results != null &&
             results.targets_Fiducials != null &&
             results.targets_Fiducials.length > 0;
-
-        System.out.println("tv = " + LimelightHelpers.getTV(ledname));
         System.out.println("pipeline latency = " +
             LimelightHelpers.getLatency_Pipeline(ledname));
 
         if (seesAprilTag) {
             
+            double angle = LimelightHelpers.getTX(ledname);
             
+            double distance = Math.sqrt( Math.pow(pose.getX(), 2) + Math.pow(pose.getY(), 2) + Math.pow(pose.getZ(), 2) )
+
             System.out.println("AprilTag seen!");
             System.out.println("distance = " + distance);
             
