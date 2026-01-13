@@ -11,29 +11,30 @@ public class Limelight_LED_Test extends SubsystemBase {
 
     private final Leds ledstrip;
     private final String ledname;
+    private double angle;
+    private double distance;
 
     public Limelight_LED_Test(Leds led, String ledname) {
         this.ledstrip = led;
         this.ledname = ledname;
     }
 
-    privat double getdistance(){
-        double y = results.targets_Fiducials[0].t6c[1];
-        double x = results.targets_Fiducials[0].t6c[1];
-        double z = results.targets_Fiducials[0].t6c[2];
-        double distance = Math.sqrt(x*x + z*z);
-        return distance
+    private void getValue(LimelightHelpers.LimelightResults results) {
+
+        double x = results.targets_Fiducials[0].t6c[0]; 
+        double z = results.targets_Fiducials[0].t6c[2]; 
+
+        distance = Math.sqrt(x * x + z * z);
+        angle = Math.toDegrees(Math.atan2(x, z));
     }
+
 
     @Override
     public void periodic() {
-
+         LimelightHelpers.setPipelineIndex(ledname, 9);
         // Get the correct Limelight table
         NetworkTable limelight =
-            NetworkTableInstance.getDefault().getTable(ledname);
-
-        // Force AprilTag pipeline
-        LimelightHelpers.setPipelineIndex(ledname, 9);
+            NetworkTableInstance.getDefault().getTable(ledname);;
 
         LimelightHelpers.LimelightResults results =
             LimelightHelpers.getLatestResults(ledname);
@@ -48,16 +49,11 @@ public class Limelight_LED_Test extends SubsystemBase {
             LimelightHelpers.getLatency_Pipeline(ledname));
 
         if (seesAprilTag) {
-            double 
-            double x =
-                results.targets_Fiducials[0].t6c[1];
-            double z =
-                results.targets_Fiducials[0].t6c[2];
-
+            getValue(results);
             System.out.println("AprilTag seen!");
-            System.out.println("distance = " + distance);
+            System.out.println("distance = " + this.distance);
             
-            if (distane <= 1.0) {
+            if (this.distance <= 1.0) {
                 ledstrip.setYellow();
             } else {
                 ledstrip.setWhite();
