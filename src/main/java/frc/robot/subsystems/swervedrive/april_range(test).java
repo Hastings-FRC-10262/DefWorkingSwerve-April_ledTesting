@@ -17,6 +17,14 @@ public class Limelight_LED_Test extends SubsystemBase {
         this.ledname = ledname;
     }
 
+    privat double getdistance(){
+        double y = results.targets_Fiducials[0].t6c[1];
+        double x = results.targets_Fiducials[0].t6c[1];
+        double z = results.targets_Fiducials[0].t6c[2];
+        double distance = Math.sqrt(x*x + z*z);
+        return distance
+    }
+
     @Override
     public void periodic() {
 
@@ -40,8 +48,10 @@ public class Limelight_LED_Test extends SubsystemBase {
             LimelightHelpers.getLatency_Pipeline(ledname));
 
         if (seesAprilTag) {
-
-            double distance =
+            double 
+            double x =
+                results.targets_Fiducials[0].t6c[1];
+            double z =
                 results.targets_Fiducials[0].t6c[2];
 
             System.out.println("AprilTag seen!");
