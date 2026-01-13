@@ -41,8 +41,7 @@ public class Limelight_LED_Test extends SubsystemBase {
                     .getZ();
 
             System.out.println("AprilTag seen");
-            System.out.println("Camera distance (m): " + distanceMeters);
-            System.out.println("Distance (m): " + distance);
+            System.out.println("Distance (m): " + distanceMeters);
             System.out.println("Camera Angle: " + angle); 
             
             if (distanceMeters <= 1.0) {
