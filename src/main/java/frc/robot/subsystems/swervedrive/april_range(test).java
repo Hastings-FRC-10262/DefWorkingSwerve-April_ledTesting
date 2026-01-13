@@ -45,8 +45,6 @@ public class Limelight_LED_Test extends SubsystemBase {
                 results.targets_Fiducials[0].t6c[2];
 
             System.out.println("AprilTag seen!");
-            System.out.println("x = " + x);
-            System.out.println("z = " + z);
             System.out.println("distance = " + distance);
             
             if (distane <= 1.0) {
