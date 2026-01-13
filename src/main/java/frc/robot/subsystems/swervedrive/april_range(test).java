@@ -1,4 +1,4 @@
-package frc.robot.subsystems.swervedrive;
+owpackage frc.robot.subsystems.swervedrive;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -50,7 +50,7 @@ public class Limelight_LED_Test extends SubsystemBase {
             System.out.println("distance = " + distance);
             
             if (distane <= 1.0) {
-                ledstrip.setPink();
+                ledstrip.setYellow();
             } else {
                 ledstrip.setWhite();
             }
