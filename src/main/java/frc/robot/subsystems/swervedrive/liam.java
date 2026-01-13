@@ -43,6 +43,8 @@ public class Limelight_LED_Test extends SubsystemBase {
                     .getZ();
         
             System.out.println("AprilTag seen");
+            System.out.println("Robot X: " + botPose.getX());
+            System.out.println("Robot Y: " + botPose.getY());
             System.out.println("Distance (m): " + distanceMeters);
             System.out.println("Camera Angle: " + angle); 
             
