@@ -17,7 +17,18 @@ public class Limelight_LED_Test extends SubsystemBase {
         // Set AprilTag pipeline ONCE
         LimelightHelpers.setPipelineIndex(limelightName, 9);
     }
-
+    
+    public double getDistance(){
+        
+        double distanceMeters =
+                LimelightHelpers
+                    .getTargetPose3d_CameraSpace(limelightName)
+                    .getZ();
+        
+        System.out.println("Distance (m): " + distanceMeters);
+        
+    }
+    
     @Override
     public void periodic() {
 
@@ -33,15 +44,9 @@ public class Limelight_LED_Test extends SubsystemBase {
         if (seesAprilTag) {
                         
             double angle = LimelightHelpers.getTX(limelightName); 
-
-            // Forward distance from CAMERA to AprilTag (meters)
-            double distanceMeters =
-                LimelightHelpers
-                    .getTargetPose3d_CameraSpace(limelightName)
-                    .getZ();
+            double distanceMeters = getDistance();
 
             System.out.println("AprilTag seen");
-            System.out.println("Distance (m): " + distanceMeters);
             System.out.println("Camera Angle: " + angle); 
             
             if (distanceMeters <= 1.0) {
