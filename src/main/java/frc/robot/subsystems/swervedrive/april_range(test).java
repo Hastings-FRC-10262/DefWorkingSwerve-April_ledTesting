@@ -1,5 +1,6 @@
 package frc.robot.subsystems.swervedrive;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.LimelightHelpers;
@@ -14,41 +15,44 @@ public class Limelight_LED_Test extends SubsystemBase {
         this.ledstrip = led;
         this.limelightName = limelightName;
 
-        // Set AprilTag pipeline ONCE
         LimelightHelpers.setPipelineIndex(limelightName, 9);
     }
     
-    public double getDistance(){
-        
-        double distanceMeters =
-                LimelightHelpers
-                    .getTargetPose3d_CameraSpace(limelightName)
-                    .getZ();
-        
-        System.out.println("Distance (m): " + distanceMeters);
-        
+    public double getDistance() {
+        return LimelightHelpers
+                .getTargetPose3d_CameraSpace(limelightName)
+                .getZ();
     }
-    
+
+    public Pose2d getBotPose() {
+        return LimelightHelpers.getBotPose2d_wpiBlue(limelightName);
+    }
+
     @Override
     public void periodic() {
 
         LimelightHelpers.LimelightResults results =
-            LimelightHelpers.getLatestResults(limelightName);
+                LimelightHelpers.getLatestResults(limelightName);
 
         boolean seesAprilTag =
-            results != null &&
-            results.valid &&
-            results.targets_Fiducials != null &&
-            results.targets_Fiducials.length > 0;
+                results != null &&
+                results.valid &&
+                results.targets_Fiducials != null &&
+                results.targets_Fiducials.length > 0;
 
         if (seesAprilTag) {
-                        
-            double angle = LimelightHelpers.getTX(limelightName); 
+
+            double angle = LimelightHelpers.getTX(limelightName);
             double distanceMeters = getDistance();
+            Pose2d botPose = getBotPose();
 
             System.out.println("AprilTag seen");
-            System.out.println("Camera Angle: " + angle); 
-            
+            System.out.println("Robot X: " + botPose.getX());
+            System.out.println("Robot Y: " + botPose.getY());
+            System.out.println("Robot Heading: " + botPose.getRotation().getDegrees());
+            System.out.println("Camera Angle TX: " + angle);
+            System.out.println("Distance (m): " + distanceMeters);
+
             if (distanceMeters <= 1.0) {
                 ledstrip.setYellow();
             } else {
