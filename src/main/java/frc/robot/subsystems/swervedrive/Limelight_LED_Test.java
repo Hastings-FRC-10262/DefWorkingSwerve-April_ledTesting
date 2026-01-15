@@ -29,6 +29,11 @@ public class Limelight_LED_Test extends SubsystemBase {
         return LimelightHelpers.getBotPose2d_wpiBlue(limelightName);
     }
 
+    public int getTagCout(){
+        int tag =  getTargetCount(limelightName);
+        return tag
+    }
+
     @Override
     public void periodic() {
 
