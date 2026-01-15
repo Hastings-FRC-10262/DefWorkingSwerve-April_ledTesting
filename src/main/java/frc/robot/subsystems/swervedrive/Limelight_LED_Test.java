@@ -10,6 +10,7 @@ public class Limelight_LED_Test extends SubsystemBase {
 
     private final Leds ledstrip;
     private final String limelightName;
+    public double angle;
 
     public Limelight_LED_Test(Leds led, String limelightName) {
         this.ledstrip = led;
@@ -42,7 +43,7 @@ public class Limelight_LED_Test extends SubsystemBase {
 
         if (seesAprilTag) {
 
-            double angle = LimelightHelpers.getTX(limelightName);
+            this.angle = LimelightHelpers.getTX(limelightName);
             double distanceMeters = getDistance();
             Pose2d botPose = getBotPose();
 
