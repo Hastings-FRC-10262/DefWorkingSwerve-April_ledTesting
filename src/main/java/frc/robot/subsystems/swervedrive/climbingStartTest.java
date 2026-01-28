@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 private static final int CLIMBER_MOTOR_ID = 5;
 
 public class ClimberSubsystem extends SubsystemBase {
-    // Replace 10 with your actual CAN ID
+
     private final SparkMax climberMotor = new SparkMax(CLIMBER_MOTOR_ID, MotorType.kBrushless);
 
-    public ClimberSubsystem() {
+    public init() {
        
         SparkMaxConfig config = new SparkMaxConfig();
 
@@ -38,6 +38,7 @@ public class ClimberSubsystem extends SubsystemBase {
     public void runWinch(double speed) {
             climberMotor.set(speed);
         }
+
     
     public void stop() {
             climberMotor.set(0);
