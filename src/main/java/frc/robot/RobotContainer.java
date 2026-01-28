@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.Leds;
 import frc.robot.subsystems.swervedrive.PhotoelectricSensor;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -49,6 +50,7 @@ public class RobotContainer
 
   private final Limelight_LED_Test limelight = new Limelight_LED_Test(leds,"limelight-a");
   
+  private final Intake intake = new Intake();
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -139,7 +141,7 @@ public class RobotContainer
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     } else
     {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocityKeyboard);
     }
 
     if (Robot.isSimulation())

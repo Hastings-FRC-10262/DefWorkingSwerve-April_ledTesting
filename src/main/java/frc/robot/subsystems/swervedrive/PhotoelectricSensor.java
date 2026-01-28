@@ -24,7 +24,7 @@ public class PhotoelectricSensor extends SubsystemBase {
     }
     
     public boolean isTripped() {      
-        boolean isitTripped = onCount >= SAMPLING_WINDOW;
+        boolean isitTripped = photoelectricSensor.getVoltage() < VOLTAGE_THRESHOLD;
         return isitTripped;
     }
 
