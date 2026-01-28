@@ -16,6 +16,14 @@ public class ClimberSubsystem extends SubsystemBase {
     private final SparkMax climberMotor = new SparkMax(CLIMBER_MOTOR_ID, MotorType.kBrushless);
 
     public ClimberSubsystem() {
+        public void runWinch(double speed) {
+            climberMotor.set(speed);
+        }
+    
+        public void stop() {
+            climberMotor.set(0);
+        }
+
         SparkMaxConfig config = new SparkMaxConfig();
 
         // 1. Set Brake Mode: Holds position when power is 0
@@ -29,17 +37,17 @@ public class ClimberSubsystem extends SubsystemBase {
 
         // Apply configuration
         climberMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+        runWinch(20);
+
+        stop();
+
+        runWinch(-20);
+        
     }
 
     /**
      * Run the winch to pull the robot up. 
      * Usually, negative power retracts (winches) the rope.
      */
-    public void runWinch(double speed) {
-        climberMotor.set(speed);
-    }
-
-    public void stop() {
-        climberMotor.set(0);
-    }
 }
