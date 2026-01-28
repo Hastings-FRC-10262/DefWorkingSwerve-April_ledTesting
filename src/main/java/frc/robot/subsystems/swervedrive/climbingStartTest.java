@@ -8,9 +8,12 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+// Define your CAN ID here (Change 5 to your actual ID)
+private static final int CLIMBER_MOTOR_ID = 5;
+
 public class ClimberSubsystem extends SubsystemBase {
     // Replace 10 with your actual CAN ID
-    private final SparkMax climberMotor = new SparkMax(10, MotorType.kBrushless);
+    private final SparkMax climberMotor = new SparkMax(CLIMBER_MOTOR_ID, MotorType.kBrushless);
 
     public ClimberSubsystem() {
         SparkMaxConfig config = new SparkMaxConfig();
